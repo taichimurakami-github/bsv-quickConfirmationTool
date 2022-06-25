@@ -7,6 +7,7 @@
     <title>Balance and keys Quick Checker</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- <script src="https://unpkg.com/bsv@1.5.6/bsv.min.js"></script> -->
+    <script src="./qrcode.min.js"></script>
     <script
       type="text/javascript"
       src="https://unpkg.com/bsv@1.5.3/bsv.min.js"
@@ -35,6 +36,7 @@
         <p id="balance" class="key-strings-container"></p>
       </li>
     </ul>
+    <div id="qrcode"></div>
     <p id="errorlog_showcase" class="error-container"></p>
   </body>
 </html>
@@ -57,6 +59,12 @@
     padding: 30px;
     text-align: center;
     font-weight: bold;
+  }
+
+  #qrcode {
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
   }
 </style>
 <script>
@@ -94,6 +102,8 @@
       balanceElem.innerText = "balance取得中...";
 
       refreshBalance(addr.toString());
+
+      new QRCode(document.getElementById("qrcode"), `bitcoin: ${addr}`);
     } catch (e) {
       console.log(e);
       errorlogElem.innerText = e;
