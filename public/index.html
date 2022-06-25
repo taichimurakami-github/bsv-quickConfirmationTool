@@ -75,6 +75,8 @@
   const balanceElem = document.getElementById("balance");
   const errorlogElem = document.getElementById("errorlog_showcase");
 
+  let qrcode;
+
   const refreshBalance = (addr) => {
     let config = {
       method: "get",
@@ -103,7 +105,11 @@
 
       refreshBalance(addr.toString());
 
-      new QRCode(document.getElementById("qrcode"), `bitcoin: ${addr}`);
+      if (qrcode) {
+        qrcode.makeCode(String(addr));
+      } else {
+        qrcode = new QRCode(document.getElementById("qrcode"), String(addr));
+      }
     } catch (e) {
       console.log(e);
       errorlogElem.innerText = e;
