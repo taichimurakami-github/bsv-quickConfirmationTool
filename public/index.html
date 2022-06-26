@@ -7,11 +7,10 @@
     <title>Balance and keys Quick Checker</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- <script src="https://unpkg.com/bsv@1.5.6/bsv.min.js"></script> -->
-    <script src="./qrcode.min.js"></script>
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/bsv@1.5.3/bsv.min.js"
-    ></script>
+    <script defer src="./js/qrcode.min.js"></script>
+    <script defer src="https://unpkg.com/bsv@1.5.3/bsv.min.js"></script>
+    <script defer src="./js/main.js"></script>
+    <link rel="stylesheet" href="./css//style.css" />
   </head>
   <body>
     <ul>
@@ -40,81 +39,3 @@
     <p id="errorlog_showcase" class="error-container"></p>
   </body>
 </html>
-<style>
-  .flex {
-    display: flex;
-  }
-  .flex.row {
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-  }
-
-  input {
-    height: 1rem;
-  }
-
-  #errorlog_showcase {
-    color: red;
-    padding: 30px;
-    text-align: center;
-    font-weight: bold;
-  }
-
-  #qrcode {
-    display: flex;
-    margin-top: 50px;
-    justify-content: center;
-  }
-</style>
-<script>
-  const btn = document.getElementById("btn_checkout");
-  const privKeyElem = document.getElementById("privatekey");
-  const pubKeyElem = document.getElementById("publickey");
-  const addressElem = document.getElementById("address");
-  const balanceElem = document.getElementById("balance");
-  const errorlogElem = document.getElementById("errorlog_showcase");
-
-  let qrcode;
-
-  const refreshBalance = (addr) => {
-    let config = {
-      method: "get",
-      url:
-        "https://api.whatsonchain.com/v1/bsv/main/address/" + addr + "/balance",
-    };
-
-    axios(config).then((response) => {
-      let data = JSON.stringify(response.data);
-      console.log(data);
-      balanceElem.innerText = data;
-    });
-  };
-
-  btn.onclick = () => {
-    try {
-      const inputValue = document.getElementById("privatekey_input").value;
-
-      const privKey = bsv.PrivateKey.fromString(inputValue);
-      const pubKey = bsv.PublicKey.fromPrivateKey(privKey);
-      const addr = bsv.Address.fromPrivateKey(privKey);
-      privKeyElem.innerText = privKey;
-      pubKeyElem.innerText = pubKey;
-      addressElem.innerText = addr;
-      balanceElem.innerText = "balance取得中...";
-
-      refreshBalance(addr.toString());
-
-      if (qrcode) {
-        qrcode.makeCode(String(addr));
-      } else {
-        qrcode = new QRCode(document.getElementById("qrcode"), String(addr));
-      }
-    } catch (e) {
-      console.log(e);
-      errorlogElem.innerText = e;
-    }
-
-    // refreshBalance();
-  };
-</script>

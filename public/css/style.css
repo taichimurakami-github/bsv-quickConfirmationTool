@@ -1,0 +1,25 @@
+.flex {
+  display: flex;
+}
+.flex.row {
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+input {
+  height: 1rem;
+}
+
+#errorlog_showcase {
+  color: red;
+  padding: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#qrcode {
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+}
