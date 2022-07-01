@@ -6,29 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Balance and keys Quick Checker</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- <script src="https://unpkg.com/bsv@1.5.6/bsv.min.js"></script> -->
-    <script defer src="./js/qrcode.min.js"></script>
-    <script defer src="https://unpkg.com/bsv@1.5.3/bsv.min.js"></script>
+    <script src="https://unpkg.com/bsv@1.5.6"></script>
+    <script src="https://unpkg.com/run-sdk"></script>
+    <script src="./js/qrcode.min.js"></script>
     <script defer src="./js/main.js"></script>
     <link rel="stylesheet" href="./css//style.css" />
   </head>
   <body>
-    <ul>
-      <li>
+    <ul class="control-panel">
+      <li class="control-panel-content">
+        <button id="btn_generate">
+          新規プライベートキーを発行(Runライブラリを使用)
+        </button>
+      </li>
+      <li class="control-panel-content">
         <input id="privatekey_input" />
         <button id="btn_checkout">確認する</button>
       </li>
+      <li>表示された文字列をクリックするとクリップボードにコピーされます．</li>
       <li class="flex row">
         <p>Privkey:</p>
-        <p id="privatekey" class="key-strings-container"></p>
+        <p
+          id="privatekey"
+          data-type="プライベートキー"
+          class="key-strings-container"
+          onclick="copyToClipboard(this)"
+        ></p>
       </li>
       <li class="flex row">
         <p>Pubkey:</p>
-        <p id="publickey" class="key-strings-container"></p>
+        <p
+          id="publickey"
+          data-type="パブリックキー"
+          class="key-strings-container"
+          onclick="copyToClipboard(this)"
+        ></p>
       </li>
       <li class="flex row">
         <p>address:</p>
-        <p id="address" class="key-strings-container"></p>
+        <p
+          id="address"
+          data-type="アドレス"
+          class="key-strings-container"
+          onclick="copyToClipboard(this)"
+        ></p>
       </li>
       <li class="flex row">
         <p>balance:</p>
@@ -38,4 +59,5 @@
     <div id="qrcode"></div>
     <p id="errorlog_showcase" class="error-container"></p>
   </body>
+  <script></script>
 </html>

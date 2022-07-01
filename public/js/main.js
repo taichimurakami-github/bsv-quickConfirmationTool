@@ -28,7 +28,7 @@ const generateQRCode = (content, elem) => {
   }
 };
 
-const main = () => {
+const confirm = () => {
   const inputValue = document.getElementById("privatekey_input").value;
   errorlogElem.innerText = "";
 
@@ -49,4 +49,20 @@ const main = () => {
   }
 };
 
-document.getElementById("btn_checkout").onclick = main;
+const generate = () => {
+  console.log("generate new key");
+  const run = new Run({ network: "main" });
+  privKeyElem.innerText = run.owner.privkey.toString();
+  pubKeyElem.innerText = run.owner.pubkey.toString();
+  addressElem.innerText = run.owner.address.toString();
+};
+
+function copyToClipboard(e) {
+  console.log("test");
+  navigator.clipboard.writeText(e.innerText).then(() => {
+    alert(e.dataset.type + " がコピーされました！");
+  });
+}
+
+document.getElementById("btn_checkout").onclick = confirm;
+document.getElementById("btn_generate").onclick = generate;
